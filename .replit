@@ -1,4 +1,4 @@
-modules = ["nodejs-20", "php-8.2", "web"]
+modules = ["nodejs-20", "php-8.2", "web", "postgresql-16"]
 [agent]
 expertMode = true
 integrations = ["replitmail:1.0.0"]
@@ -25,10 +25,6 @@ args = "Frontend"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "PHP Server"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Server"
 
 [[workflows.workflow]]
@@ -42,18 +38,6 @@ waitForPort = 5000
 
 [workflows.workflow.metadata]
 outputType = "webview"
-
-[[workflows.workflow]]
-name = "PHP Server"
-author = "agent"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "php -S 0.0.0.0:8000 php-server.php"
-waitForPort = 8000
-
-[workflows.workflow.metadata]
-outputType = "console"
 
 [[workflows.workflow]]
 name = "Server"
@@ -76,13 +60,13 @@ localPort = 8000
 externalPort = 8000
 
 [[ports]]
+localPort = 32967
+externalPort = 3001
+
+[[ports]]
 localPort = 34183
 externalPort = 3000
 
 [[ports]]
 localPort = 41511
 externalPort = 80
-
-[[ports]]
-localPort = 46607
-externalPort = 3001

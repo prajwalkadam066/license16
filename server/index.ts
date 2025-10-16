@@ -1214,11 +1214,11 @@ app.get('/api/notification-settings', async (req, res) => {
           notify_45_days,
           notify_30_days, 
           notify_15_days, 
+          notify_7_days,
           notify_5_days, 
           notify_1_day, 
-          notify_on_expiry,
-          notify_post_expiry,
-          email_enabled
+          notify_0_days,
+          email_notifications_enabled
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [user_id, true, true, true, true, true, true, true, true]
       ) as any;
@@ -1234,14 +1234,15 @@ app.get('/api/notification-settings', async (req, res) => {
       return res.json({
         success: true,
         data: {
-          email_notifications_enabled: defaultSettings[0].email_enabled,
+          email_notifications_enabled: defaultSettings[0].email_notifications_enabled,
           notification_days: [
             defaultSettings[0].notify_45_days ? 45 : null,
             defaultSettings[0].notify_30_days ? 30 : null,
             defaultSettings[0].notify_15_days ? 15 : null,
+            defaultSettings[0].notify_7_days ? 7 : null,
             defaultSettings[0].notify_5_days ? 5 : null,
             defaultSettings[0].notify_1_day ? 1 : null,
-            defaultSettings[0].notify_on_expiry ? 0 : null
+            defaultSettings[0].notify_0_days ? 0 : null
           ].filter((d: any) => d !== null),
           notification_time: defaultTime,
           timezone: defaultSettings[0].timezone || 'UTC'
@@ -1256,7 +1257,7 @@ app.get('/api/notification-settings', async (req, res) => {
     res.json({
       success: true,
       data: {
-        email_notifications_enabled: setting.email_enabled,
+        email_notifications_enabled: setting.email_notifications_enabled,
         notification_days: [
           setting.notify_45_days ? 45 : null,
           setting.notify_30_days ? 30 : null,
@@ -1264,7 +1265,7 @@ app.get('/api/notification-settings', async (req, res) => {
           setting.notify_7_days ? 7 : null,
           setting.notify_5_days ? 5 : null,
           setting.notify_1_day ? 1 : null,
-          setting.notify_on_expiry ? 0 : null
+          setting.notify_0_days ? 0 : null
         ].filter((d: any) => d !== null),
         notification_time: timeStr,
         timezone: setting.timezone || 'UTC'
@@ -1301,7 +1302,7 @@ app.post('/api/notification-settings', async (req, res) => {
     const notify_7_days = notification_days?.includes(7) ?? true;
     const notify_5_days = notification_days?.includes(5) ?? false;
     const notify_1_day = notification_days?.includes(1) ?? true;
-    const notify_on_expiry = notification_days?.includes(0) ?? true;
+    const notify_0_days = notification_days?.includes(0) ?? true;
 
     const existingSettings = await query(
       'SELECT id FROM notification_settings WHERE user_id = ? LIMIT 1',
@@ -1318,12 +1319,11 @@ app.post('/api/notification-settings', async (req, res) => {
           notify_7_days, 
           notify_5_days, 
           notify_1_day, 
-          notify_on_expiry,
-          notify_post_expiry,
-          email_enabled,
+          notify_0_days,
+          email_notifications_enabled,
           notification_time,
           timezone
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         [
           user_id,
           notify_45_days,
@@ -1332,8 +1332,7 @@ app.post('/api/notification-settings', async (req, res) => {
           notify_7_days,
           notify_5_days,
           notify_1_day,
-          notify_on_expiry,
-          true,
+          notify_0_days,
           email_notifications_enabled ?? true,
           notification_time || '09:00',
           timezone || 'UTC'
@@ -1349,8 +1348,8 @@ app.post('/api/notification-settings', async (req, res) => {
           notify_7_days = ?,
           notify_5_days = ?,
           notify_1_day = ?,
-          notify_on_expiry = ?,
-          email_enabled = ?,
+          notify_0_days = ?,
+          email_notifications_enabled = ?,
           notification_time = ?,
           timezone = ?,
           updated_at = CURRENT_TIMESTAMP
@@ -1362,7 +1361,7 @@ app.post('/api/notification-settings', async (req, res) => {
           notify_7_days,
           notify_5_days,
           notify_1_day,
-          notify_on_expiry,
+          notify_0_days,
           email_notifications_enabled ?? true,
           notification_time || '09:00',
           timezone || 'UTC',
@@ -1574,7 +1573,7 @@ app.post('/api/notifications/check-expiring-licenses', async (req, res) => {
       [user_id]
     ) as any[];
 
-    if (settings.length === 0 || !settings[0].email_enabled) {
+    if (settings.length === 0 || !settings[0].email_notifications_enabled) {
       return res.json({
         success: true,
         message: 'Email notifications are disabled',
@@ -1591,7 +1590,7 @@ app.post('/api/notifications/check-expiring-licenses', async (req, res) => {
     if (notificationSettings.notify_7_days) daysToCheck.push(7);
     if (notificationSettings.notify_5_days) daysToCheck.push(5);
     if (notificationSettings.notify_1_day) daysToCheck.push(1);
-    if (notificationSettings.notify_on_expiry) daysToCheck.push(0);
+    if (notificationSettings.notify_0_days) daysToCheck.push(0);
 
     const licenses = await query(
       `SELECT 
