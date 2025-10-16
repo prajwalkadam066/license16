@@ -1,0 +1,168 @@
+CRON JOB SETUP INSTRUCTIONS
+===========================
+
+To set up automated daily email notifications at 11:00 AM, you need to configure a cron job.
+
+METHOD 1: cPanel Cron Jobs (Recommended for cPanel hosting)
+===========================================================
+
+1. Login to your cPanel control panel
+2. Find and click on "Cron Jobs" (usually under Advanced or System)
+3. In the "Add New Cron Job" section:
+
+   Common Settings: Select "Custom"
+   
+   Minute: 0
+   Hour: 11
+   Day: *
+   Month: *
+   Weekday: *
+   
+   Command: /usr/local/bin/php /home/[your_cpanel_username]/public_html/php/backend/email_system/daily_notifications.php
+   
+   Alternative command if the above doesn't work:
+   php -f /home/[your_cpanel_username]/public_html/php/backend/email_system/daily_notifications.php
+
+4. Click "Add New Cron Job"
+
+IMPORTANT: Replace [your_cpanel_username] with your actual cPanel username
+
+
+METHOD 2: Manual Crontab (If you have SSH access)
+==================================================
+
+1. SSH into your server
+2. Open crontab for editing: crontab -e
+3. Add this line:
+   0 11 * * * /usr/local/bin/php /path/to/your/php/backend/email_system/daily_notifications.php
+
+4. Save and exit
+
+
+METHOD 3: Alternative PHP Path Commands
+=======================================
+
+If the default PHP path doesn't work, try these alternatives:
+
+# Using php command
+0 11 * * * php /path/to/daily_notifications.php
+
+# Using full path to PHP 8.0
+0 11 * * * /opt/cpanel/ea-php80/root/usr/bin/php /path/to/daily_notifications.php
+
+# Using full path to PHP 8.1
+0 11 * * * /opt/cpanel/ea-php81/root/usr/bin/php /path/to/daily_notifications.php
+
+# Using wget to call a web version (if you create a web endpoint)
+0 11 * * * wget -O - -q https://yourdomain.com/php/backend/email_system/daily_notifications.php
+
+
+CRON JOB EXPLANATION
+====================
+
+The cron format is: minute hour day month weekday command
+
+0 11 * * *  means:
+- 0: At minute 0 (exactly 11:00, not 11:30)
+- 11: At hour 11 (11 AM in 24-hour format)
+- *: Every day of the month
+- *: Every month
+- *: Every day of the week
+
+
+TIMEZONE CONSIDERATIONS
+======================
+
+Cron jobs typically run in the server's timezone. If your server is in a different timezone:
+
+1. Check server timezone: date
+2. Either adjust the hour in cron job, or
+3. Set the timezone in daily_notifications.php (already done: Asia/Kolkata)
+
+
+TESTING THE CRON JOB
+====================
+
+1. Set up a test cron job that runs every minute to verify it works:
+   * * * * * /usr/local/bin/php /path/to/daily_notifications.php
+
+2. Check if the script runs and creates log files
+3. Once confirmed working, change back to daily at 11 AM
+4. Remove the test cron job
+
+
+MONITORING AND LOGS
+==================
+
+1. Check cron job execution:
+   - cPanel: Look for cron job output/emails
+   - SSH: Check /var/log/cron or /var/mail/[username]
+
+2. Check script logs:
+   - PHP errors: php/backend/email_system/logs/php_errors.log
+   - Daily summaries: php/backend/email_system/logs/daily_notifications_YYYY-MM.log
+
+3. Database logs:
+   - Check email_notifications table for sent emails
+
+
+TROUBLESHOOTING COMMON ISSUES
+=============================
+
+Issue: Cron job doesn't run
+Solution: 
+- Verify the PHP path with: which php
+- Check cPanel cron job syntax
+- Ensure file permissions are correct (755 for directories, 644 for files)
+
+Issue: Script runs but no emails sent
+Solution:
+- Check SMTP configuration in EmailNotificationService.php
+- Verify database connection
+- Check PHP error logs
+
+Issue: Permission denied errors
+Solution:
+- Set proper file permissions: chmod 644 daily_notifications.php
+- Ensure the logs directory is writable: chmod 755 logs/
+
+Issue: Script times out
+Solution:
+- Increase max_execution_time in PHP settings
+- Consider processing emails in smaller batches
+
+
+EXAMPLE CRON JOB EMAIL OUTPUT
+=============================
+
+When the cron job runs successfully, you should see output like:
+
+===== Daily Email Notifications Summary =====
+Date: 2025-01-15 11:00:02
+Execution Time: 2.34 seconds
+
+Notifications Sent:
+- 30 Days Before: 3
+- 15 Days Before: 1
+- 7 Days Before: 2
+- 1 Day Before: 0
+- Expired Today: 1
+
+Total Sent: 7
+Errors: 0
+===== End Summary =====
+
+
+FINAL CHECKLIST
+===============
+
+□ PHPMailer installed (run install_phpmailer.php)
+□ SMTP settings configured in EmailNotificationService.php
+□ Database credentials updated in cpanel_database.php
+□ Test email sent successfully (run test_email.php)
+□ Cron job added with correct path and timing
+□ Log directory permissions set correctly (755)
+□ Timezone configured properly
+□ Monitoring set up to check daily execution
+
+For additional support, check your cPanel hosting provider's documentation or contact their support team.

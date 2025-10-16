@@ -1,0 +1,59 @@
+API Configuration: ObjectbaseUrl: "https://cybaemtech.net/api"environment: "Production (cPanel)"formattedEndpoint: "/licenses.php"fullUrl: "https://cybaemtech.net/api/licenses.php"isLocal: falseisProduction: trueoriginalEndpoint: "/licenses"[[Prototype]]: Object
+api/licenses.php:1  Failed to load resource: the server responded with a status of 404 (Not Found)Understand this error
+index-DspBqxw2.js:377 Database error: Error: Expected JSON response but got text/html; charset=iso-8859-1. Response: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<p>Additionally, a 404 Not Found
+error was encountered while trying to use an ErrorDocument to handle the request.</p>
+</body></html>
+
+    at xu (index-DspBqxw2.js:302:6839)
+    at async rT.select (index-DspBqxw2.js:302:9253)
+    at async A (index-DspBqxw2.js:374:62579)
+A @ index-DspBqxw2.js:377Understand this error
+index-DspBqxw2.js:377 Fetch error: Error: Expected JSON response but got text/html; charset=iso-8859-1. Response: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<p>Additionally, a 404 Not Found
+error was encountered while trying to use an ErrorDocument to handle the request.</p>
+</body></html>
+
+    at xu (index-DspBqxw2.js:302:6839)
+    at async rT.select (index-DspBqxw2.js:302:9253)
+    at async A (index-DspBqxw2.js:374:62579)
+A @ index-DspBqxw2.js:377Understand this error
+index-DspBqxw2.js:374 Fetching dashboard data...
+index-DspBqxw2.js:302 🌐 API Configuration: Object
+api/licenses.php:1  Failed to load resource: the server responded with a status of 404 (Not Found)Understand this error
+index-DspBqxw2.js:377 Database error: Error: Expected JSON response but got text/html; charset=iso-8859-1. Response: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<p>Additionally, a 404 Not Found
+error was encountered while trying to use an ErrorDocument to handle the request.</p>
+</body></html>
+
+    at xu (index-DspBqxw2.js:302:6839)
+    at async rT.select (index-DspBqxw2.js:302:9253)
+    at async A (index-DspBqxw2.js:374:62579)
+A @ index-DspBqxw2.js:377Understand this error
+index-DspBqxw2.js:377 Fetch error: Error: Expected JSON response but got text/html; charset=iso-8859-1. Response: <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<html><head>
+<title>404 Not Found</title>
+</head><body>
+<h1>Not Found</h1>
+<p>The requested URL was not found on this server.</p>
+<p>Additionally, a 404 Not Found
+error was encountered while trying to use an ErrorDocument to handle the request.</p>
+</body></html>
+
+    at xu (index-DspBqxw2.js:302:6839)
+    at async rT.select (index-DspBqxw2.js:302:925

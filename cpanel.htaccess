@@ -1,0 +1,69 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /License/
+  
+  # Force HTTPS (optional - uncomment if you have SSL)
+  # RewriteCond %{HTTPS} off
+  # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+  
+  # Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+  
+  # API Routing - Let the api/.htaccess handle API requests
+  # Don't rewrite API requests here - they'll be handled by api/.htaccess
+  RewriteCond %{REQUEST_URI} ^/License/api/
+  RewriteRule ^.*$ - [L]
+  
+  # Skip index.html from rewriting
+  RewriteRule ^index\.html$ - [L]
+  
+  # Route all other requests to React's index.html (for React Router)
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /License/index.html [L]
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set X-XSS-Protection "1; mode=block"
+  
+  # CORS Headers for API (if needed)
+  Header set Access-Control-Allow-Origin "*"
+  Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+  Header set Access-Control-Allow-Headers "Content-Type, Authorization"
+</IfModule>
+
+# Enable GZIP Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Caching for static assets
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpg "access 1 year"
+  ExpiresByType image/jpeg "access 1 year"
+  ExpiresByType image/gif "access 1 year"
+  ExpiresByType image/png "access 1 year"
+  ExpiresByType image/webp "access 1 year"
+  ExpiresByType image/svg+xml "access 1 year"
+  ExpiresByType text/css "access 1 month"
+  ExpiresByType application/javascript "access 1 month"
+  ExpiresByType text/javascript "access 1 month"
+  ExpiresByType application/x-font-woff "access 1 month"
+  ExpiresByType application/font-woff "access 1 month"
+  ExpiresByType application/font-woff2 "access 1 month"
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Prevent access to .htaccess and .env files
+<FilesMatch "^\.">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

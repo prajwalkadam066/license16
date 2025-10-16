@@ -1,0 +1,46 @@
+I am working on a web application using PHP for the backend and phpMyAdmin (PostgreSQL or MySQL depending on the setup) for the database. I want to deploy this project using cPanel.
+
+Here are the tasks I need help with:
+
+1. Fix form submission errors:
+   - I am getting "Cannot read properties of undefined (reading 'id')" errors when submitting forms like Add Client and Add License.
+   - It seems the form data is not being handled or validated properly.
+   - Help me add input validation in PHP and ensure that required fields like client id are checked before accessing them.
+
+2. Navbar issue:
+   - I am having trouble displaying the navigation bar properly. It might be due to missing variables or incorrect PHP includes.
+   - Help me fix it so that the navigation bar is consistent across pages.
+
+3. Remove Multi-Currency Purchases page and its database:
+   - I want to completely delete the Multi-Currency Purchases page and its database tables.
+   - Provide me the SQL commands to drop these tables.
+   - Help me remove all routes and code related to this page safely without breaking the rest of the application.
+
+4. Email automation for license expiration:
+   - I want to automatically send email reminders to clients when their tools/licenses are expiring.
+   - Emails should be sent at these intervals:
+     - 30 days before expiration
+     - 15 days before expiration
+     - 7 days before expiration
+     - 1 day before expiration
+     - On the day of expiration (optional)
+   - The email should include:
+     - Client name
+     - Tool name
+     - Expiration date
+     - A message like "Your license is expiring in X days. Please renew it soon."
+   - Help me write PHP code that:
+     - Checks the database daily for licenses nearing expiration
+     - Sends emails using PHPMailer or a similar library
+     - Avoids sending duplicate emails by keeping a log or status field
+
+5. Deployment on cPanel:
+   - Help me configure the database connection in PHP using cPanel settings.
+   - Explain how to set up environment variables or credentials safely in cPanel.
+   - Provide steps to upload my PHP files and database backup to the hosting server.
+
+Please give me:
+- PHP code examples for validation and email sending.
+- SQL commands to delete the database.
+- Instructions for cPanel setup including database connection and email configuration.
+

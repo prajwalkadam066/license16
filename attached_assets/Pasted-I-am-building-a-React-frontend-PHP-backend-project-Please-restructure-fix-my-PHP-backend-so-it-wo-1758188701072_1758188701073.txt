@@ -1,0 +1,153 @@
+I am building a React frontend + PHP backend project. Please restructure/fix my PHP backend so it works in both localhost and cPanel hosting (https://cybaemtech.net/lms/
+).
+
+1. Folder Structure (already created, keep it this way)
+api/
+│
+├── login.php
+├── register.php
+├── index.php
+├── user.php
+├── Client.php
+├── License.php
+├── User.php
+│
+├── controllers/
+│   ├── AuthController.php
+│   ├── ClientController.php
+│   ├── LicenseController.php
+│   └── UserController.php
+│
+├── config/
+│   ├── database.php
+│   └── constants.php
+│
+├── middleware/
+│   ├── Auth.php
+│   └── CORS.php
+│
+├── utils/
+│   ├── ImprovedValidator.php
+│   ├── JWT.php
+│   ├── Response.php
+│   └── Validator.php
+│
+└── email/
+    ├── daily_notifications.php
+    ├── EmailNotificationService.php
+    ├── test_email.php
+    ├── web_endpoint.php
+    ├── install_phpmailer.php
+    └── cron_setup.txt
+
+2. Update require/include paths
+
+Always use consistent relative paths:
+
+require_once __DIR__ . '/config/database.php';
+require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/utils/Response.php';
+
+
+Avoid paths that break between localhost and cPanel.
+
+3. API URLs
+
+On localhost → APIs should be available at:
+http://localhost/lms/api/...
+
+On cPanel → APIs should be available at:
+https://cybaemtech.net/lms/api/...
+
+Examples:
+
+POST /api/login.php
+
+POST /api/register.php
+
+GET /api/user.php
+
+GET /api/Client.php
+
+GET /api/License.php
+
+4. Fix Current Issues
+
+Eliminate 500 Internal Server Error (likely DB or missing require path)
+
+Eliminate 404 Not Found for API endpoints
+
+Ensure all APIs return valid JSON with header:
+
+header("Content-Type: application/json; charset=UTF-8");
+echo json_encode(["success" => true, "message" => "Logged in"]);
+exit;
+
+
+No plain text like Response: in output
+
+Use a central Response.php helper to standardize JSON responses
+
+Use try/catch for database + controller errors
+
+5. Database Config (api/config/database.php)
+
+Use PDO with error handling:
+
+<?php
+class Database {
+    private $host = "82.25.105.94";
+    private $port = "3306";
+    private $db_name = "cybaemtechnet_lms";
+    private $username = "cybaemtechnet_lms";
+    private $password = "Cybaem@2025";
+    public $conn;
+
+    public function getConnection() {
+        $this->conn = null;
+        try {
+            $this->conn = new PDO(
+                "mysql:host={$this->host};port={$this->port};dbname={$this->db_name};charset=utf8mb4",
+                $this->username,
+                $this->password
+            );
+            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch(PDOException $e) {
+            echo json_encode(["error" => "Database connection failed", "details" => $e->getMessage()]);
+            exit;
+        }
+        return $this->conn;
+    }
+}
+
+6. Frontend Integration
+
+React is deployed at /lms/. API base URL logic:
+
+// api-config.ts
+const getApiBaseUrl = () => {
+  if (
+    typeof window !== "undefined" &&
+    (window.location.pathname.startsWith("/lms/") ||
+     window.location.pathname === "/lms")
+  ) {
+    return "/lms/api"; // ✅ matches backend folder
+  }
+  return import.meta.env.VITE_API_BASE_URL || "/api";
+};
+
+export const API_BASE_URL = getApiBaseUrl();
+
+
+Example React calls:
+
+fetch(API_BASE_URL + "/login.php", { method: "POST", body: JSON.stringify(data) });
+fetch(API_BASE_URL + "/Client.php");
+
+7. Deliverables
+
+✅ Fixed backend with consistent JSON responses
+
+✅ Working login/register APIs with DB connection
+
+✅ React frontend communicates with backend on both localhost & cPanel

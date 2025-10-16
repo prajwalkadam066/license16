@@ -1,0 +1,83 @@
+Uncaught TypeError: client.amount.toFixed is not a function
+    at Clients.tsx:813:125
+    at Array.map (<anonymous>)
+    at Clients (Clients.tsx:769:33)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at updateFunctionComponent (react-dom.development.js:19617:20)
+    at beginWork (react-dom.development.js:21640:16)
+    at HTMLUnknownElement.callCallback2 (react-dom.development.js:4164:14)
+    at Object.invokeGuardedCallbackDev (react-dom.development.js:4213:16)
+    at invokeGuardedCallback (react-dom.development.js:4277:31)
+    at beginWork$1 (react-dom.development.js:27490:7)
+hook.js:608  The above error occurred in the <Clients> component:
+
+    at Clients (http://localhost:5001/lms/src/pages/Clients.tsx:40:20)
+    at RenderedRoute (http://localhost:5001/lms/node_modules/.vite/deps/react-router-dom.js?v=9921ac1f:4103:5)
+    at Routes (http://localhost:5001/lms/node_modules/.vite/deps/react-router-dom.js?v=9921ac1f:4574:5)
+    at AuthWrapper (http://localhost:5001/lms/src/components/AuthWrapper.tsx:21:24)
+    at div
+    at AppContent (http://localhost:5001/lms/src/App.tsx:33:35)
+    at Router (http://localhost:5001/lms/node_modules/.vite/deps/react-router-dom.js?v=9921ac1f:4517:15)
+    at BrowserRouter (http://localhost:5001/lms/node_modules/.vite/deps/react-router-dom.js?v=9921ac1f:5266:5)
+    at App
+
+Consider adding an error boundary to your tree to customize error handling behavior.
+Visit https://reactjs.org/link/error-boundaries to learn more about error boundaries.
+overrideMethod @ hook.js:608
+react-dom.development.js:26962  Uncaught TypeError: client.amount.toFixed is not a function
+    at Clients.tsx:813:125
+    at Array.map (<anonymous>)
+    at Clients (Clients.tsx:769:33)
+    at renderWithHooks (react-dom.development.js:15486:18)
+    at updateFunctionComponent (react-dom.development.js:19617:20)
+    at beginWork (react-dom.development.js:21640:16)
+    at beginWork$1 (react-dom.development.js:27465:14)
+    at performUnitOfWork (react-dom.development.js:26596:12)
+    at workLoopSync (react-dom.development.js:26505:5)
+    at renderRootSync (react-dom.development.js:26473:7)
+client.ts:105 [vite] server connection lost. polling for restart...
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:340
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED
+ping @ client.ts:327
+waitForSuccessfulPing @ client.ts:348
+await in waitForSuccessfulPing
+(anonymous) @ client.ts:106
+client.ts:327   GET http://localhost:5001/lms/ net::ERR_CONNECTION_REFUSED

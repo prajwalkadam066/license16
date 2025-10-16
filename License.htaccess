@@ -1,0 +1,81 @@
+# Enable URL Rewriting
+RewriteEngine On
+
+# Set the base URL for the React app in /License subdirectory
+RewriteBase /License/
+
+# Don't rewrite API calls - let them pass through to the api folder
+RewriteCond %{REQUEST_URI} ^/License/api/ [NC]
+RewriteRule ^.*$ - [L]
+
+# Handle React Router (client-side routing)
+# If the request is for a file or directory that exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# For all other requests (React routes), serve the main index.html file
+RewriteRule ^(.*)$ index.html [QSA,L]
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header always set X-Content-Type-Options nosniff
+    
+    # Enable XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+    
+    # Prevent clickjacking
+    Header always set X-Frame-Options DENY
+    
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Cache Control for Static Assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Cache HTML files for 1 hour
+    ExpiresByType text/html "access plus 1 hour"
+    
+    # Cache CSS and JS for 1 year
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    
+    # Cache images for 1 month
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    
+    # Cache fonts for 1 year
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+</IfModule>
+
+# Gzip Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE text/plain
+</IfModule>
+
+# Prevent access to sensitive files
+<Files ".env*">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# Block access to source maps in production
+<Files "*.map">
+    Order allow,deny
+    Deny from all
+</Files>

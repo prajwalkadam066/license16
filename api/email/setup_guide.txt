@@ -1,0 +1,188 @@
+EMAIL NOTIFICATION SYSTEM SETUP GUIDE
+=======================================
+
+This guide will help you set up the automated email notification system for license expiry reminders.
+
+STEP 1: INSTALL PHPMAILER
+=========================
+
+Option A: Automatic Installation (Recommended)
+1. Upload all files to your server
+2. Run: php install_phpmailer.php
+3. This will download PHPMailer automatically
+
+Option B: Manual Installation
+1. Download PHPMailer from https://github.com/PHPMailer/PHPMailer
+2. Extract files to php/backend/email_system/PHPMailer/
+3. Ensure these files exist:
+   - PHPMailer/PHPMailer.php
+   - PHPMailer/SMTP.php
+   - PHPMailer/Exception.php
+
+STEP 2: DATABASE SETUP
+======================
+
+1. Import the database schema:
+   - Use cpanel_setup.sql for MySQL/MariaDB
+   - This creates all necessary tables including email_notifications
+
+2. Update database credentials:
+   - File: config/cpanel_database.php
+   - Already updated with your credentials:
+     * Database: cybaemtechnet_lms
+     * User: cybaemtechnet_lms
+     * Password: Cybaem@2025
+
+STEP 3: EMAIL CONFIGURATION
+===========================
+
+Edit email_system/config.php and update:
+
+For Gmail (Recommended):
+1. Enable 2-Factor Authentication on your Gmail account
+2. Generate an "App Password" for this application
+3. Update config.php:
+   - smtp.username: your-gmail@gmail.com
+   - smtp.password: your-16-digit-app-password
+
+For Other Email Providers:
+- Update smtp.host, port, username, password accordingly
+- See config.php for examples of different providers
+
+STEP 4: TEST THE SYSTEM
+=======================
+
+1. Test PHPMailer installation:
+   php install_phpmailer.php
+
+2. Test email configuration:
+   php test_email.php
+   (Update the test email address in the file first)
+
+3. Test the complete system:
+   php daily_notifications.php
+
+STEP 5: SET UP AUTOMATION
+=========================
+
+Choose ONE of these methods:
+
+METHOD A: cPanel Cron Job (Recommended)
+1. Login to cPanel → Cron Jobs
+2. Add new cron job:
+   - Minute: 0
+   - Hour: 11
+   - Day: *
+   - Month: *
+   - Weekday: *
+   - Command: php /home/[username]/public_html/php/backend/email_system/daily_notifications.php
+
+METHOD B: Web-based Cron (Alternative)
+1. Use web_endpoint.php for web-based execution
+2. Set up external cron service (like cron-job.org) to call:
+   https://yourdomain.com/php/backend/email_system/web_endpoint.php?token=cybaem_2025_secure_token
+3. Change the security token in web_endpoint.php
+
+STEP 6: MONITORING
+==================
+
+1. Check logs in email_system/logs/
+2. Verify emails in database table: email_notifications
+3. Monitor cron job execution
+4. Set up log rotation if needed
+
+EMAIL SCHEDULE IMPLEMENTED
+===========================
+
+The system sends emails at 11:00 AM daily for:
+✓ 30 days before expiry → "30 days remaining" email
+✓ 15 days before expiry → "15 days remaining" email  
+✓ 7 days before expiry → "7 days remaining" email
+✓ 1 day before expiry → "1 day remaining" email
+✓ On expiry date → "expired" email
+
+EMAIL CONTENT INCLUDES
+======================
+
+✓ Customer name and email
+✓ Purchase date and expiry date
+✓ Product/service name (tool_name)
+✓ Price and currency
+✓ Serial number
+✓ Vendor information
+✓ Quantity of licenses
+✓ Professional HTML design
+✓ Company branding and contact info
+
+TROUBLESHOOTING COMMON ISSUES
+=============================
+
+Issue: "PHPMailer not found"
+Solution: Run install_phpmailer.php or manually install PHPMailer
+
+Issue: "SMTP connection failed"
+Solution: 
+- Check SMTP settings in config.php
+- Verify email credentials
+- Ensure "Less secure app access" is enabled (Gmail)
+- Use App Password instead of regular password (Gmail)
+
+Issue: "Database connection failed"  
+Solution: Verify database credentials in cpanel_database.php
+
+Issue: "No emails sent"
+Solution:
+- Check if licenses match expiry criteria
+- Verify email addresses exist in database
+- Check email_notifications table for previous sends
+
+Issue: "Cron job not working"
+Solution:
+- Verify PHP path in cron command
+- Check file permissions (755 for scripts)
+- Test script manually first
+- Check cPanel error logs
+
+SECURITY CONSIDERATIONS
+=======================
+
+1. Change security token in web_endpoint.php
+2. Use App Passwords instead of main email passwords
+3. Keep SMTP credentials secure
+4. Monitor log files for suspicious activity
+5. Use HTTPS for web endpoints
+6. Set proper file permissions (644 for PHP files)
+
+FINAL CHECKLIST
+===============
+
+□ PHPMailer installed and working
+□ Database schema imported (cpanel_setup.sql)
+□ Database credentials updated
+□ Email SMTP settings configured
+□ Test email sent successfully
+□ Cron job or web endpoint set up
+□ Log monitoring in place
+□ Security tokens updated
+□ File permissions set correctly
+
+For additional support:
+- Check logs in email_system/logs/
+- Review email_notifications table in database
+- Contact hosting provider for cron job assistance
+
+EXAMPLE EMAIL OUTPUT
+====================
+
+Subject: ⚠️ 7 Days Left: Adobe Photoshop License Expires Soon
+
+Content includes:
+- Professional HTML design
+- Customer details (name, email, phone)
+- License information (software, vendor, serial)
+- Purchase and expiry dates
+- Pricing information
+- Company branding and contact details
+- Clear call-to-action for renewal
+
+The system is fully automated and will handle all license expiry notifications according to your specified schedule!
