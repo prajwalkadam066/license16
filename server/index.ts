@@ -686,7 +686,7 @@ app.put('/api/clients/:id', async (req, res) => {
           company_name = ?,
           gst_treatment = ?,
           source_of_supply = ?,
-          pan = ?,
+          gst = ?,
           currency_id = ?,
           mode_of_payment = ?,
           amount = ?,
@@ -988,7 +988,7 @@ app.put('/api/vendors/:id', async (req, res) => {
           company_name = ?,
           gst_treatment = ?,
           source_of_supply = ?,
-          pan = ?,
+          gst = ?,
           currency_id = ?,
           mode_of_payment = ?,
           amount = ?,
@@ -1216,9 +1216,7 @@ app.get('/api/notification-settings', async (req, res) => {
         [insertResult.insertId]
       ) as any[];
 
-      const defaultTime = defaultSettings[0].notification_time 
-        ? (typeof defaultSettings[0].notification_time === 'string' ? defaultSettings[0].notification_time.substring(0, 5) : '15:30')
-        : '15:30';
+      const defaultTime = '09:00';
       return res.json({
         success: true,
         data: {
@@ -1239,9 +1237,7 @@ app.get('/api/notification-settings', async (req, res) => {
     }
 
     const setting = settings[0];
-    const timeStr = setting.notification_time 
-      ? (typeof setting.notification_time === 'string' ? setting.notification_time.substring(0, 5) : '15:30')
-      : '15:30';
+    const timeStr = '09:00';
     res.json({
       success: true,
       data: {

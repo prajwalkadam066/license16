@@ -132,7 +132,7 @@ class ClientController {
             
             $sql = "INSERT INTO clients (
                 name, contact_person, email, phone, address, company_name,
-                gst_treatment, source_of_supply, pan, currency_id, 
+                gst_treatment, source_of_supply, gst, currency_id, 
                 mode_of_payment, amount, quantity
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
@@ -146,7 +146,7 @@ class ClientController {
                 $input['company_name'] ?? '',
                 $input['gst_treatment'] ?? '',
                 $input['source_of_supply'] ?? '',
-                $input['pan'] ?? '',
+                $input['gst'] ?? '',
                 $input['currency_id'] ?? null,
                 $input['mode_of_payment'] ?? '',
                 $input['amount'] ?? null,
@@ -184,7 +184,7 @@ class ClientController {
                 company_name = ?,
                 gst_treatment = ?,
                 source_of_supply = ?,
-                pan = ?,
+                gst = ?,
                 currency_id = ?,
                 mode_of_payment = ?,
                 amount = ?,
@@ -202,7 +202,7 @@ class ClientController {
                 $input['company_name'] ?? '',
                 $input['gst_treatment'] ?? '',
                 $input['source_of_supply'] ?? '',
-                $input['pan'] ?? '',
+                $input['gst'] ?? '',
                 $input['currency_id'] ?? null,
                 $input['mode_of_payment'] ?? '',
                 $input['amount'] ?? null,

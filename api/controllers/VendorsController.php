@@ -80,7 +80,7 @@ class VendorsController {
             $company_name = $normalizeOptional($input['company_name'] ?? null);
             $gst_treatment = $normalizeOptional($input['gst_treatment'] ?? null);
             $source_of_supply = $normalizeOptional($input['source_of_supply'] ?? null);
-            $pan = $normalizeOptional($input['pan'] ?? null);
+            $gst = $normalizeOptional($input['gst'] ?? null);
             $currency_id = $normalizeOptional($input['currency_id'] ?? null);
             $mode_of_payment = $normalizeOptional($input['mode_of_payment'] ?? null);
             $amount = $input['amount'] ?? null;
@@ -92,14 +92,14 @@ class VendorsController {
             
             $sql = "INSERT INTO vendors (
                 name, contact_person, email, phone, address, company_name,
-                gst_treatment, source_of_supply, pan, currency_id, 
+                gst_treatment, source_of_supply, gst, currency_id, 
                 mode_of_payment, amount, quantity
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             
             $stmt = $this->conn->prepare($sql);
             $stmt->execute([
                 $name, $contact_person, $email, $phone, $address, $company_name,
-                $gst_treatment, $source_of_supply, $pan, $currency_id,
+                $gst_treatment, $source_of_supply, $gst, $currency_id,
                 $mode_of_payment, $amount, $quantity
             ]);
             
@@ -146,7 +146,7 @@ class VendorsController {
                 company_name = ?,
                 gst_treatment = ?,
                 source_of_supply = ?,
-                pan = ?,
+                gst = ?,
                 currency_id = ?,
                 mode_of_payment = ?,
                 amount = ?,
@@ -164,7 +164,7 @@ class VendorsController {
                 $normalizeOptional($input['company_name'] ?? null),
                 $normalizeOptional($input['gst_treatment'] ?? null),
                 $normalizeOptional($input['source_of_supply'] ?? null),
-                $normalizeOptional($input['pan'] ?? null),
+                $normalizeOptional($input['gst'] ?? null),
                 $normalizeOptional($input['currency_id'] ?? null),
                 $normalizeOptional($input['mode_of_payment'] ?? null),
                 $input['amount'] ?? null,

@@ -218,7 +218,7 @@ try {
         $address = trim($input['address'] ?? '');
         $gst_treatment = trim($input['gst_treatment'] ?? '');
         $source_of_supply = trim($input['source_of_supply'] ?? '');
-        $pan = trim($input['pan'] ?? '');
+        $gst = trim($input['gst'] ?? '');
         $purchase_date = trim($input['purchase_date'] ?? '');
         $invoice_no = trim($input['invoice_no'] ?? '');
         $serial_no = trim($input['serial_no'] ?? '');
@@ -331,13 +331,13 @@ try {
         // Insert new license purchase - let database generate the ID
         $sql = "INSERT INTO license_purchases (
                     user_id, client_id, tool_name, make, model, version, vendor, 
-                    contact_person, email, phone, company, address, gst_treatment, source_of_supply, pan,
+                    contact_person, email, phone, company, address, gst_treatment, source_of_supply, gst,
                     cost_per_user, quantity, total_cost, total_cost_inr, 
                     purchase_date, expiration_date, invoice_no, serial_no, 
                     currency_code, original_amount, created_at, updated_at
                 ) VALUES (
                     :user_id, :client_id, :tool_name, :make, :model, :version, :vendor,
-                    :contact_person, :email, :phone, :company, :address, :gst_treatment, :source_of_supply, :pan,
+                    :contact_person, :email, :phone, :company, :address, :gst_treatment, :source_of_supply, :gst,
                     :cost_per_user, :quantity, :total_cost, :total_cost_inr,
                     :purchase_date, :expiration_date, :invoice_no, :serial_no,
                     :currency_code, :original_amount, CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP()
@@ -360,7 +360,7 @@ try {
                 ':address' => !empty($address) ? $address : null,
                 ':gst_treatment' => !empty($gst_treatment) ? $gst_treatment : null,
                 ':source_of_supply' => !empty($source_of_supply) ? $source_of_supply : null,
-                ':pan' => !empty($pan) ? $pan : null,
+                ':gst' => !empty($gst) ? $gst : null,
                 ':cost_per_user' => $cost_per_user,
                 ':quantity' => $quantity,
                 ':total_cost' => $total_cost,
@@ -435,7 +435,7 @@ try {
         $address = trim($input['address'] ?? '');
         $gst_treatment = trim($input['gst_treatment'] ?? '');
         $source_of_supply = trim($input['source_of_supply'] ?? '');
-        $pan = trim($input['pan'] ?? '');
+        $gst = trim($input['gst'] ?? '');
         $purchase_date = trim($input['purchase_date'] ?? '');
         $invoice_no = trim($input['invoice_no'] ?? '');
         $serial_no = trim($input['serial_no'] ?? '');
@@ -500,7 +500,7 @@ try {
                     client_id = :client_id, tool_name = :tool_name, make = :make, model = :model, 
                     version = :version, vendor = :vendor, 
                     contact_person = :contact_person, email = :email, phone = :phone, company = :company,
-                    address = :address, gst_treatment = :gst_treatment, source_of_supply = :source_of_supply, pan = :pan,
+                    address = :address, gst_treatment = :gst_treatment, source_of_supply = :source_of_supply, gst = :gst,
                     cost_per_user = :cost_per_user, 
                     quantity = :quantity, total_cost = :total_cost, total_cost_inr = :total_cost_inr,
                     purchase_date = :purchase_date, expiration_date = :expiration_date, 
@@ -524,7 +524,7 @@ try {
             ':address' => !empty($address) ? $address : null,
             ':gst_treatment' => !empty($gst_treatment) ? $gst_treatment : null,
             ':source_of_supply' => !empty($source_of_supply) ? $source_of_supply : null,
-            ':pan' => !empty($pan) ? $pan : null,
+            ':gst' => !empty($gst) ? $gst : null,
             ':cost_per_user' => $cost_per_user,
             ':quantity' => $quantity,
             ':total_cost' => $total_cost,

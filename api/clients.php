@@ -170,7 +170,7 @@ try {
             if (array_key_exists('company_name', $client)) $formatted['company_name'] = $client['company_name'];
             if (array_key_exists('gst_treatment', $client)) $formatted['gst_treatment'] = $client['gst_treatment'];
             if (array_key_exists('source_of_supply', $client)) $formatted['source_of_supply'] = $client['source_of_supply'];
-            if (array_key_exists('pan', $client)) $formatted['pan'] = $client['pan'];
+            if (array_key_exists('gst', $client)) $formatted['gst'] = $client['gst'];
             if (array_key_exists('currency_id', $client)) $formatted['currency_id'] = $client['currency_id'];
             if (array_key_exists('mode_of_payment', $client)) $formatted['mode_of_payment'] = $client['mode_of_payment'];
             if (array_key_exists('amount', $client)) $formatted['amount'] = $client['amount'];
@@ -285,7 +285,7 @@ try {
         // Add optional fields if they exist in both the table and the input
         $optionalFields = [
             'address', 'company_name', 'gst_treatment', 'source_of_supply', 
-            'pan', 'currency_id', 'mode_of_payment', 'amount', 'quantity', 
+            'gst', 'currency_id', 'mode_of_payment', 'amount', 'quantity', 
             'status', 'contact_person'
         ];
         
@@ -423,7 +423,7 @@ try {
         // Add optional fields if they exist in both the table and the input
         $optionalFields = [
             'address', 'company_name', 'gst_treatment', 'source_of_supply', 
-            'pan', 'currency_id', 'mode_of_payment', 'amount', 'quantity', 
+            'gst', 'currency_id', 'mode_of_payment', 'amount', 'quantity', 
             'status', 'contact_person'
         ];
         
