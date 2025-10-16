@@ -4,6 +4,16 @@ LicenseHub is an enterprise software license management system designed to track
 
 # Recent Changes
 
+**October 16, 2025** - Completed PAN to GST Migration:
+- ✅ Migrated database schema from 'pan' (10-char) to 'gst' (15-char) columns across clients, vendors, and license_purchases tables
+- ✅ Updated all Node.js backend APIs (server/index.ts) to use 'gst' field in INSERT, UPDATE, and SELECT queries
+- ✅ Updated all PHP backend APIs (api/licenses.php, api/clients.php) to use 'gst' field
+- ✅ Updated PHP controllers (VendorsController.php, ClientController.php) for 'gst' field handling
+- ✅ Updated frontend components (Clients.tsx) to display "GST Number" labels instead of "PAN"
+- ✅ Updated AddLicenseModal component with 15-character GST Number input field
+- ✅ Fixed notification settings error - removed reference to non-existent notification_time column
+- ✅ All create, update, and display operations now use GST Number format throughout the application
+
 **October 15, 2025** - Fixed cPanel Vendor Page 404 and 500 Errors:
 - ✅ Resolved 404 "Not Found" errors for vendor page on cPanel deployment
 - ✅ Fixed "Unexpected token '<', "<!DOCTYPE "... is not valid JSON" error
@@ -22,7 +32,7 @@ LicenseHub is an enterprise software license management system designed to track
 - ✅ Implemented normalizeOptional helper in VendorsController to properly handle empty fields
 - ✅ Empty strings are now converted to NULL in the database instead of being stored as empty strings
 - ✅ Updated frontend display logic to properly differentiate between NULL and actual empty values
-- ✅ Vendor information (Contact Person, Email, Phone, Company, Address, GST Treatment, Source of Supply, PAN, Payment Mode) now displays correctly
+- ✅ Vendor information (Contact Person, Email, Phone, Company, Address, GST Treatment, Source of Supply, GST Number, Payment Mode) now displays correctly
 
 **October 15, 2025** - Fixed Client Data Display and Update Issues:
 - ✅ Resolved "Client ID is required" error when updating clients on cPanel deployment
@@ -30,7 +40,7 @@ LicenseHub is an enterprise software license management system designed to track
 - ✅ Updated PHP API to extract client ID from URL path (/api/clients/{id}) in addition to request body
 - ✅ Modified optional field handling to preserve actual string values instead of converting to NULL
 - ✅ Improved frontend display logic to properly differentiate between empty and missing data
-- ✅ Client information (Contact Person, Company, Address, GST Treatment, Source of Supply, PAN) now displays correctly after adding or updating
+- ✅ Client information (Contact Person, Company, Address, GST Treatment, Source of Supply, GST Number) now displays correctly after adding or updating
 
 **October 15, 2025** - Fixed Vendors API Endpoint Errors:
 - ✅ Resolved "Endpoint not found" error on Replit and "Unexpected token '<'" error on cPanel
@@ -105,7 +115,7 @@ Preferred communication style: Simple, everyday language.
 ## Technical Implementations
 - **Cross-platform Compatibility**: `cross-env` for environment variables.
 - **Automated Client/Vendor Creation**: License form automatically creates client and vendor records if new.
-- **Data Validation**: Robust validation for fields (e.g., PAN).
+- **Data Validation**: Robust validation for fields (e.g., GST Number with 15-character alphanumeric format).
 
 # External Dependencies
 
