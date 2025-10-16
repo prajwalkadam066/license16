@@ -31,7 +31,7 @@ function AddLicenseModal({ isOpen, onClose, onSuccess }: AddLicenseModalProps) {
   const [address, setAddress] = useState('');
   const [gstTreatment, setGstTreatment] = useState('');
   const [sourceOfSupply, setSourceOfSupply] = useState('');
-  const [pan, setPan] = useState('');
+  const [gst, setGst] = useState('');
   const [toolName, setToolName] = useState('');
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
@@ -103,7 +103,7 @@ function AddLicenseModal({ isOpen, onClose, onSuccess }: AddLicenseModalProps) {
     setAddress('');
     setGstTreatment('');
     setSourceOfSupply('');
-    setPan('');
+    setGst('');
     setToolName('');
     setMake('');
     setModel('');
@@ -190,7 +190,7 @@ function AddLicenseModal({ isOpen, onClose, onSuccess }: AddLicenseModalProps) {
         address: address.trim() || null,
         gst_treatment: gstTreatment.trim() || null,
         source_of_supply: sourceOfSupply.trim() || null,
-        pan: pan.trim() || null,
+        gst: gst.trim() || null,
         tool_name: toolName,
         make,
         model,
@@ -406,17 +406,17 @@ function AddLicenseModal({ isOpen, onClose, onSuccess }: AddLicenseModalProps) {
             </div>
 
             <div>
-              <label htmlFor="pan" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                PAN
+              <label htmlFor="gst" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                GST Number
               </label>
               <input
-                id="pan"
+                id="gst"
                 type="text"
-                value={pan}
-                onChange={(e) => setPan(e.target.value.toUpperCase())}
-                maxLength={10}
+                value={gst}
+                onChange={(e) => setGst(e.target.value.toUpperCase())}
+                maxLength={15}
                 className="mt-1 block w-full rounded-lg border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-700 px-3 py-2 text-gray-900 dark:text-gray-100 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20"
-                placeholder="Enter PAN number"
+                placeholder="Enter GST number (15 chars)"
               />
             </div>
           </div>
