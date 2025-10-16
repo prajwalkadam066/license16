@@ -29,7 +29,7 @@ interface Client {
   company_name: string;
   gst_treatment: string;
   source_of_supply: string;
-  pan: string;
+  gst: string;
   currency_id: string;
   mode_of_payment: string;
   amount: number;
@@ -54,7 +54,7 @@ function Clients() {
     company_name: "",
     gst_treatment: "",
     source_of_supply: "",
-    pan: "",
+    gst: "",
     currency_id: "",
     mode_of_payment: "",
     amount: "",
@@ -119,7 +119,7 @@ function Clients() {
         company_name: formData.company_name.trim(),
         gst_treatment: formData.gst_treatment.trim(),
         source_of_supply: formData.source_of_supply.trim(),
-        pan: formData.pan.trim().toUpperCase(),
+        gst: formData.gst.trim().toUpperCase(),
         currency_id: formData.currency_id || null,
         mode_of_payment: formData.mode_of_payment.trim(),
         amount: formData.amount ? parseFloat(formData.amount) : null,
@@ -166,7 +166,7 @@ function Clients() {
       company_name: client.company_name || "",
       gst_treatment: client.gst_treatment || "",
       source_of_supply: client.source_of_supply || "",
-      pan: client.pan || "",
+      gst: client.gst || "",
       currency_id: client.currency_id || "",
       mode_of_payment: client.mode_of_payment || "",
       amount: client.amount?.toString() || "",
@@ -220,7 +220,7 @@ function Clients() {
       company_name: "",
       gst_treatment: "",
       source_of_supply: "",
-      pan: "",
+      gst: "",
       currency_id: "",
       mode_of_payment: "",
       amount: "",
@@ -443,19 +443,19 @@ function Clients() {
                   </div>
                 </div>
                 <div className="md:col-span-2">
-                  <label htmlFor="pan" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                    PAN Number
+                  <label htmlFor="gst" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    GST Number
                   </label>
                   <div className="relative">
                     <Hash className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                     <input
-                      id="pan"
+                      id="gst"
                       type="text"
-                      value={formData.pan}
-                      onChange={(e) => setFormData({ ...formData, pan: e.target.value.toUpperCase() })}
+                      value={formData.gst}
+                      onChange={(e) => setFormData({ ...formData, gst: e.target.value.toUpperCase() })}
                       className="block w-full pl-10 pr-4 py-2.5 rounded-lg border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-700 text-gray-900 dark:text-gray-100 focus:border-blue-500 dark:focus:border-blue-400 focus:ring-2 focus:ring-blue-500/20 dark:focus:ring-blue-400/20 text-sm transition-colors uppercase"
-                      placeholder="ABCDE1234F"
-                      maxLength={10}
+                      placeholder="22AAAAA0000A1Z5"
+                      maxLength={15}
                     />
                   </div>
                 </div>
@@ -571,7 +571,7 @@ function Clients() {
                 <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                   <div className="flex items-center">
                     <Hash className="h-3 w-3 mr-1" />
-                    PAN
+                    GST Number
                   </div>
                 </th>
                 <th className="px-3 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -642,7 +642,7 @@ function Clients() {
                       {client.source_of_supply && client.source_of_supply.trim() !== '' ? client.source_of_supply : '-'}
                     </td>
                     <td className="px-3 py-3 text-sm text-gray-500 dark:text-gray-400">
-                      {client.pan && client.pan.trim() !== '' ? client.pan : '-'}
+                      {client.gst && client.gst.trim() !== '' ? client.gst : '-'}
                     </td>
                     <td className="px-3 py-3">
                       <div className="flex gap-1">
