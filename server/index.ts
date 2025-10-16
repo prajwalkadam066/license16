@@ -594,7 +594,7 @@ app.post('/api/clients', async (req, res) => {
       company_name, 
       gst_treatment, 
       source_of_supply, 
-      pan, 
+      gst, 
       currency_id, 
       mode_of_payment, 
       amount, 
@@ -615,7 +615,7 @@ app.post('/api/clients', async (req, res) => {
         company_name, 
         gst_treatment, 
         source_of_supply, 
-        pan, 
+        gst, 
         currency_id, 
         mode_of_payment, 
         amount, 
@@ -631,7 +631,7 @@ app.post('/api/clients', async (req, res) => {
         company_name ?? null, 
         gst_treatment ?? null, 
         source_of_supply ?? null, 
-        pan ?? null, 
+        gst ?? null, 
         currency_id ?? null, 
         mode_of_payment ?? null, 
         amount ?? null, 
@@ -669,7 +669,7 @@ app.put('/api/clients/:id', async (req, res) => {
       company_name, 
       gst_treatment, 
       source_of_supply, 
-      pan, 
+      gst, 
       currency_id, 
       mode_of_payment, 
       amount, 
@@ -702,7 +702,7 @@ app.put('/api/clients/:id', async (req, res) => {
         company_name ?? null, 
         gst_treatment ?? null, 
         source_of_supply ?? null, 
-        pan ?? null, 
+        gst ?? null, 
         currency_id ?? null, 
         mode_of_payment ?? null, 
         amount ?? null, 
@@ -897,20 +897,14 @@ app.post('/api/vendors', async (req, res) => {
       company_name,
       gst_treatment,
       source_of_supply,
-      pan,
+      gst,
       currency_id,
       mode_of_payment,
       amount,
       quantity
     } = req.body;
 
-    if (pan && (pan.length !== 10 || pan !== pan.toUpperCase())) {
-      return res.status(400).json({
-        success: false,
-        message: 'PAN must be exactly 10 uppercase characters',
-        error: 'Invalid PAN format'
-      });
-    }
+    // GST Number validation removed - can be added if needed (15 chars alphanumeric)
 
     const insertResult = await query(
       `INSERT INTO vendors (
@@ -922,7 +916,7 @@ app.post('/api/vendors', async (req, res) => {
         company_name,
         gst_treatment,
         source_of_supply,
-        pan,
+        gst,
         currency_id,
         mode_of_payment,
         amount,
@@ -937,7 +931,7 @@ app.post('/api/vendors', async (req, res) => {
         company_name || null,
         gst_treatment || null,
         source_of_supply || null,
-        pan || null,
+        gst || null,
         currency_id || null,
         mode_of_payment || null,
         amount || null,
@@ -975,20 +969,14 @@ app.put('/api/vendors/:id', async (req, res) => {
       company_name,
       gst_treatment,
       source_of_supply,
-      pan,
+      gst,
       currency_id,
       mode_of_payment,
       amount,
       quantity
     } = req.body;
 
-    if (pan && (pan.length !== 10 || pan !== pan.toUpperCase())) {
-      return res.status(400).json({
-        success: false,
-        message: 'PAN must be exactly 10 uppercase characters',
-        error: 'Invalid PAN format'
-      });
-    }
+    // GST Number validation removed - can be added if needed (15 chars alphanumeric)
 
     await query(
       `UPDATE vendors 
@@ -1016,7 +1004,7 @@ app.put('/api/vendors/:id', async (req, res) => {
         company_name || null,
         gst_treatment || null,
         source_of_supply || null,
-        pan || null,
+        gst || null,
         currency_id || null,
         mode_of_payment || null,
         amount || null,
